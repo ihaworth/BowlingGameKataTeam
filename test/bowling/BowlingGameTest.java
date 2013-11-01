@@ -3,7 +3,6 @@ package bowling;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class BowlingGameTest
@@ -27,7 +26,6 @@ public class BowlingGameTest
         assertThat(game.score(), equalTo(20));
     }
 
-    @Ignore
     @Test
     public void testOneSpare()
     {
@@ -37,6 +35,18 @@ public class BowlingGameTest
         rollMany(0, 17);
 
         assertThat(game.score(), equalTo(16));
+    }
+
+    @Test
+    public void testOneSpareAndAnotherRoll()
+    {
+        game.roll(5);
+        game.roll(5);
+        game.roll(3);
+        game.roll(4);
+        rollMany(0, 16);
+
+        assertThat(game.score(), equalTo(20));
     }
 
     private void rollMany(int pins, int rolls)
