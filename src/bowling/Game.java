@@ -18,7 +18,7 @@ public class Game
 
         for (int f = 0; f < 9; f++) {
             Frame frame = frames.get(f);
-            frame.setNextFrame(frames.get(f+1));
+            frame.setNextFrame(frames.get(f + 1));
         }
     }
 

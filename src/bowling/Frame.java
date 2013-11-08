@@ -3,36 +3,43 @@ package bowling;
 public class Frame
 {
     private int scoreWithoutBonus;
-    private boolean firstRoll = true;
     private int firstRollScore;
     private Frame nextFrame;
+    private int rollCount = 0;
 
     public void roll(int pins)
     {
-        if (firstRoll) {
-            firstRoll = false;
+        if (isNewFrame()) {
             firstRollScore = pins;
-        } else {
-            firstRoll = true;
         }
 
+        rollCount ++;
         scoreWithoutBonus += pins;
     }
 
-    public boolean isOver() {
-        return firstRoll;
+    private boolean isNewFrame()
+    {
+        return rollCount == 0;
     }
 
-    private boolean isSpare() {
-        return scoreWithoutBonus == 10;
+    public boolean isOver()
+    {
+        if(isStrike())
+            return true;
+
+        return rollCount == 2;
+    }
+
+    private boolean isStrike()
+    {
+        return firstRollScore == 10;
     }
 
     public int getFirstRollScore() {
         return firstRollScore;
     }
 
-    public void setNextFrame(Frame nextFrame)
-    {
+    public void setNextFrame(Frame nextFrame) {
         this.nextFrame = nextFrame;
     }
 
@@ -44,5 +51,13 @@ public class Frame
             scoreWithBonus += nextFrame.getFirstRollScore();
 
         return scoreWithBonus;
+    }
+
+    public boolean isSpare() {
+
+        if(isStrike())
+            return false;
+
+        return scoreWithoutBonus == 10;
     }
 }

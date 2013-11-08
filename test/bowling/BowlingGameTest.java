@@ -49,6 +49,32 @@ public class BowlingGameTest
         assertThat(game.score(), equalTo(20));
     }
 
+    @Test
+    public void testTwoConsecutiveSpares()
+    {
+        game.roll(5);
+        game.roll(5);
+
+        game.roll(5);
+        game.roll(5);
+
+        game.roll(3);
+        rollMany(0, 15);
+
+        assertThat(game.score(), equalTo(31));
+    }
+
+    @Test
+    public void testOneStrike()
+    {
+        game.roll(10);
+        game.roll(3);
+        game.roll(3);
+        rollMany(0, 16);
+
+        assertThat(game.score(), equalTo(22));
+    }
+
     private void rollMany(int pins, int rolls)
     {
         for (int i = 0; i < rolls; i++)
