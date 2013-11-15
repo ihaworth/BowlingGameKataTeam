@@ -35,7 +35,7 @@ public class Frame
         return firstRollScore == 10;
     }
 
-    public int getFirstRollScore() {
+    public int spareBonusForPreviousFrame() {
         return firstRollScore;
     }
 
@@ -45,12 +45,13 @@ public class Frame
 
     public int calculateScore()
     {
-        int scoreWithBonus = scoreWithoutBonus;
-
         if (isSpare())
-            scoreWithBonus += nextFrame.getFirstRollScore();
+            return scoreWithoutBonus + nextFrame.spareBonusForPreviousFrame();
 
-        return scoreWithBonus;
+        if(isStrike())
+            return scoreWithoutBonus + nextFrame.strikeBonusForPreviousFrame();
+
+        return scoreWithoutBonus;
     }
 
     public boolean isSpare() {
@@ -59,5 +60,18 @@ public class Frame
             return false;
 
         return scoreWithoutBonus == 10;
+    }
+
+    public int strikeBonusForPreviousFrame()
+    {
+        if (isStrike())
+            return scoreWithoutBonus + nextFrame.secondRollOfDoubleStrikeBonus();
+
+        return scoreWithoutBonus;
+    }
+
+    public int secondRollOfDoubleStrikeBonus()
+    {
+        return firstRollScore;
     }
 }
