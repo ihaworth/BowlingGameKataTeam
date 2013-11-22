@@ -1,77 +1,18 @@
 package bowling;
 
-public class Frame
+public interface Frame
 {
-    private int scoreWithoutBonus;
-    private int firstRollScore;
-    private Frame nextFrame;
-    private int rollCount = 0;
 
-    public void roll(int pins)
-    {
-        if (isNewFrame()) {
-            firstRollScore = pins;
-        }
+    boolean isOver();
 
-        rollCount ++;
-        scoreWithoutBonus += pins;
-    }
+    int calculateScore();
 
-    private boolean isNewFrame()
-    {
-        return rollCount == 0;
-    }
+    int secondRollOfDoubleStrikeBonus();
 
-    public boolean isOver()
-    {
-        if(isStrike())
-            return true;
+    int strikeBonusForPreviousFrame();
 
-        return rollCount == 2;
-    }
+    int spareBonusForPreviousFrame();
 
-    private boolean isStrike()
-    {
-        return firstRollScore == 10;
-    }
+    void roll(int pins);
 
-    public int spareBonusForPreviousFrame() {
-        return firstRollScore;
-    }
-
-    public void setNextFrame(Frame nextFrame) {
-        this.nextFrame = nextFrame;
-    }
-
-    public int calculateScore()
-    {
-        if (isSpare())
-            return scoreWithoutBonus + nextFrame.spareBonusForPreviousFrame();
-
-        if(isStrike())
-            return scoreWithoutBonus + nextFrame.strikeBonusForPreviousFrame();
-
-        return scoreWithoutBonus;
-    }
-
-    public boolean isSpare() {
-
-        if(isStrike())
-            return false;
-
-        return scoreWithoutBonus == 10;
-    }
-
-    public int strikeBonusForPreviousFrame()
-    {
-        if (isStrike())
-            return scoreWithoutBonus + nextFrame.secondRollOfDoubleStrikeBonus();
-
-        return scoreWithoutBonus;
-    }
-
-    public int secondRollOfDoubleStrikeBonus()
-    {
-        return firstRollScore;
-    }
 }

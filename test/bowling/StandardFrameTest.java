@@ -9,10 +9,10 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FrameTest
+public class StandardFrameTest
 {
-    private Frame frame = new Frame();
-    private Frame nextFrame = mock(Frame.class);
+    private StandardFrame frame = new StandardFrame();
+    private Frame nextFrame = mock(StandardFrame.class);
 
     @Before
     public void setUp()

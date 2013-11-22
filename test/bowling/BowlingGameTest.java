@@ -85,7 +85,7 @@ public class BowlingGameTest
     }
 
     @Test
-    public void x() {
+    public void testTwoConsecutiveStrikesWithBonus() {
         game.roll(10);
         game.roll(10);
         game.roll(2);
@@ -93,6 +93,38 @@ public class BowlingGameTest
         rollMany(0, 14);
 
         assertThat(game.score(), equalTo(42));
+    }
+
+
+    @Test
+    public void aSpareInTheLastFrameScoresItsBonusFromTheThirdRoll() {
+        rollMany(0, 18);
+        game.roll(4);
+        game.roll(6);
+        game.roll(2);
+
+        assertThat(game.score(), equalTo(12));
+    }
+
+    @Test
+    public void aStrikeInTheLastFrameScoresItsBonusFromTheNextTwoRolls() {
+        rollMany(0, 18);
+        game.roll(10);
+        game.roll(6);
+        game.roll(2);
+
+        assertThat(game.score(), equalTo(18));
+    }
+
+    @Test
+    public void aSpareInTheNinthFrameGetSpareBonusFromFinalFrame(){
+        rollMany(0, 16);
+        game.roll(5);
+        game.roll(5);
+        game.roll(1);
+        game.roll(0);
+
+        assertThat(game.score(), equalTo(12));
     }
 
     private void rollMany(int pins, int rolls)

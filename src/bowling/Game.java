@@ -1,11 +1,11 @@
 package bowling;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game
 {
-    private List<Frame> frames = new ArrayList<Frame>();
+    private List<Frame> frames = new LinkedList<Frame>();
     private int frameIndex = 0;
 
     public Game() {
@@ -13,12 +13,24 @@ public class Game
     }
 
     private void initFrames() {
-        for (int f = 0; f < 10; f++)
-            frames.add(new Frame());
+        //        for (int f = 0; f < 9; f++)
+        //            frames.add(new StandardFrame());
+        //
+        //        frames.add(new FinalFrame());
+        //
+        //        for (int f = 0; f < 9; f++) {
+        //            Frame frame = frames.get(f);
+        //            frame.setNextFrame(frames.get(f + 1));
+        //        }
 
-        for (int f = 0; f < 9; f++) {
-            Frame frame = frames.get(f);
-            frame.setNextFrame(frames.get(f + 1));
+        Frame nextFrame = new FinalFrame();
+        frames.add(nextFrame);
+
+        for (int i = 8; i >= 0; i--) {
+            StandardFrame frame = new StandardFrame();
+            frame.setNextFrame(nextFrame);
+            nextFrame = frame;
+            frames.add(0, frame);
         }
     }
 
