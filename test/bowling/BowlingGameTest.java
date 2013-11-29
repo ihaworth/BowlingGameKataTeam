@@ -127,6 +127,23 @@ public class BowlingGameTest
         assertThat(game.score(), equalTo(12));
     }
 
+    @Test
+    public void aStrikeInTheNinthFrameGetStrikeBonusFromFinalFrame(){
+        rollMany(0, 16);
+        game.roll(10);
+        game.roll(2);
+        game.roll(1);
+
+        assertThat(game.score(), equalTo(16));
+    }
+
+    @Test
+    public void perfectGameScores300(){
+        rollMany(10, 12);
+
+        assertThat(game.score(), equalTo(300));
+    }
+
     private void rollMany(int pins, int rolls)
     {
         for (int i = 0; i < rolls; i++)

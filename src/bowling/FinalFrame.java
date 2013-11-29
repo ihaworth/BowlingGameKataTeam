@@ -4,17 +4,26 @@ public class FinalFrame implements Frame
 {
 
     private int score;
+    private int rollCount;
+    private int firstRollScore;
+    private int secondRollScore;
 
     @Override
     public void roll(int pins)
     {
+        if (rollCount == 0){
+            firstRollScore = pins;
+        } else if (rollCount == 1){
+            secondRollScore = pins;
+        }
+        rollCount++;
+
         score += pins;
     }
 
     @Override
     public boolean isOver()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -27,19 +36,18 @@ public class FinalFrame implements Frame
     @Override
     public int secondRollOfDoubleStrikeBonus()
     {
-        return 0;
+        return firstRollScore;
     }
 
     @Override
     public int strikeBonusForPreviousFrame()
     {
-        return 0;
+        return firstRollScore + secondRollScore;
     }
 
     @Override
     public int spareBonusForPreviousFrame()
     {
-
-        return 0;
+        return firstRollScore;
     }
 }
